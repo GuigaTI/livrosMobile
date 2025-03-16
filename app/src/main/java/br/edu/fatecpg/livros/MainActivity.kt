@@ -17,16 +17,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val edtTitulo = findViewById<EditText>(R.id.edtTitulo)
         val edtAutor = findViewById<EditText>(R.id.edtAutor)
         val btnCadastrar = findViewById<Button>(R.id.btnSalvar)
+        val dao = LivroDao.getInstance()  // Usando o Singleton para acessar a mesma instância
 
         btnCadastrar.setOnClickListener {
-            // Criar um objeto Livro
-            val livro = livro(edtTitulo.text.toString(), edtAutor.text.toString())
+            val titulo = edtTitulo.text.toString()
+            val autor = edtAutor.text.toString()
 
-            // Passar os dados para a segunda tela
+            // Criar e inserir o livro no DAO
+            val livro = livro(titulo, autor)
+            dao.inserir(livro)
+
+            // Passando para a próxima tela com os dados
             val intent = Intent(this, InfoLivro::class.java)
-            intent.putExtra("titulo", livro.titulo)
-            intent.putExtra("autor", livro.autor)
-
             startActivity(intent)
         }
     }
