@@ -26,6 +26,5 @@ class InfoLivro : AppCompatActivity(R.layout.activity_info_livro) {
         fabVoltar.setOnClickListener {
             finish()
         }
-
     }
 }
