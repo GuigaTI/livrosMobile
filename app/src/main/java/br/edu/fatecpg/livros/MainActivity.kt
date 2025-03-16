@@ -6,8 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import br.edu.fatecpg.livros.dao.LivroDao
+import br.edu.fatecpg.livros.model.livro
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,12 +19,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val btnCadastrar = findViewById<Button>(R.id.btnSalvar)
 
         btnCadastrar.setOnClickListener {
-            val intent = Intent(this,InfoLivro::class.java)
-            intent.putExtra("Titulo",edtTitulo.text.toString())
-            intent.putExtra("Autor",edtAutor.text.toString())
+            // Criar um objeto Livro
+            val livro = livro(edtTitulo.text.toString(), edtAutor.text.toString())
+
+            // Passar os dados para a segunda tela
+            val intent = Intent(this, InfoLivro::class.java)
+            intent.putExtra("titulo", livro.titulo)
+            intent.putExtra("autor", livro.autor)
+
             startActivity(intent)
         }
-
-
     }
 }
